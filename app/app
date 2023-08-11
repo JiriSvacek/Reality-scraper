@@ -34,7 +34,8 @@ if __name__ == '__main__':
     try:
         db_con = DB_connect()
     except:
-        print("Cannot connect to DB, closing app")
+        print("Cannot connect to DB, check connection.")
+        print("Terminating app...")
         exit()
     curs = db_con.cursor()
     curs.execute("""CREATE TABLE IF NOT EXISTS luxonis (id SERIAL PRIMARY KEY, title VARCHAR(80) 
@@ -44,4 +45,4 @@ if __name__ == '__main__':
         scrape_to_sql()
     curs.close()
     print("Preparing flask")
-    app.run(debug=True, host="0.0.0.0", port=8080)
+    app.run(host="0.0.0.0", port=8080)
