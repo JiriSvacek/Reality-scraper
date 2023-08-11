@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Luxonis</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css"
+    />
+</head>
+<body>
+<section class="section">
+    <div class="columns is-centered">
+        <div class="column is-narrow">
+     <table class="table">
+           <tbody>
+                {% set count = namespace(value=1) %}
+                {% for row in data_array %}
+                    <tr>
+                        <th>
+                            {{ count.value }}
+                        </th>
+                        <td class="has-text-centered">
+                            {{ row[0] }}
+                        </td>
+                        <td>
+                            <figure class="image is-128x128">
+                                <img src="{{ row[1] }}" alt="{{ row[1] }}">
+                            </figure>
+                        </td>
+                    </tr>
+                    {% set count.value = count.value + 1 %}
+                {% endfor %}
+           </tbody>
+     </table>
+      </div>
+    </div>
+</section>
+</body>
+</html>

@@ -1,0 +1,47 @@
+from flask import Flask, render_template
+from psycopg2.extras import execute_values
+from scraper import scrape
+import psycopg2
+
+app = Flask(__name__)
+
+
+@app.route('/')
+def index():
+    db_con = DB_connect()
+    curs = db_con.cursor()
+    curs.execute("SELECT title, url FROM luxonis")
+    data = curs.fetchall()
+    curs.close()
+    return render_template('index.html', data_array=data)
+
+
+def scrape_to_sql() -> None:
+    curs.execute("TRUNCATE TABLE luxonis")
+    SCRAPE_URL = "https://www.sreality.cz/hledani/prodej/byty"
+    execute_values(curs, 'INSERT INTO luxonis (title, url) VALUES %s', scrape(SCRAPE_URL))
+
+
+def DB_connect() -> psycopg2.connect:
+    conn = psycopg2.connect(database="postgres", host="postgres",
+                            user="postgres", password="postgres", port="5432")
+    conn.autocommit = True
+    return conn
+
+
+if __name__ == '__main__':
+    print("Starting")
+    try:
+        db_con = DB_connect()
+    except:
+        print("Cannot connect to DB, closing app")
+        exit()
+    curs = db_con.cursor()
+    curs.execute("""CREATE TABLE IF NOT EXISTS luxonis (id SERIAL PRIMARY KEY, title VARCHAR(80) 
+                            NOT NULL, url VARCHAR(200) NOT NULL)""")
+    curs.execute("SELECT count(*) FROM luxonis;")
+    if curs.fetchone()[0] != 500:
+        scrape_to_sql()
+    curs.close()
+    print("Preparing flask")
+    app.run(debug=True, host="0.0.0.0", port=8080)
