@@ -1,13 +1,3 @@
-#FROM python:3.10.1-buster
-#WORKDIR /app
-#
-#COPY ./requirements.txt /app/requirements.txt
-#RUN pip install -r requirements.txt
-#EXPOSE 8080
-#COPY . /app
-#
-#CMD ["python", "app"]
-
 FROM python:3.10.1-buster
 
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
