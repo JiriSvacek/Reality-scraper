@@ -1,5 +1,5 @@
 # Reality-scraper
-Scraping fisrt 500 offers (title and first image) from sreality.cz (flats, sell) using Selenium. After succesfull scraping data are saved in the Postgresql database. All results are then available via running Flask web. Alle setup is dockerized, for running use:
+Scraping fisrt 500 offers (title and first image) from sreality.cz (flats, sell) using Selenium. After succesfull scraping data are saved in the Postgresql database. All results are then available via running Flask web. Setup is dockerized, for running use:
 
 ```
 docker-compose up
