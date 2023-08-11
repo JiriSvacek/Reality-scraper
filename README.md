@@ -9,5 +9,6 @@ During running of commands firstly Postgresql image is created.  After database 
 ```
 http://127.0.0.1:8080/
 ```
-# Page sample:
+ **Page sample:**
+ 
 ![Page with loaded data](https://github.com/JiriSvacek/Reality-scraper/blob/master/pic/page.PNG)
